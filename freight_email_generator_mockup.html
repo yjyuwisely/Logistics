@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freight Email Generator</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --primary:#1d4ed8;
+      --primary-dark:#163ea8;
+      --soft:#eef4ff;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f7faff 0%, #eef4fb 100%);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:1180px;
+      margin:32px auto;
+      padding:0 20px;
+    }
+    .hero{
+      margin-bottom:20px;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--primary);
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    h1{
+      margin:14px 0 8px;
+      font-size:38px;
+      line-height:1.1;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width:760px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:start;
+      margin-top:24px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(219,227,238,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-head{
+      padding:18px 22px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#fcfdff;
+    }
+    .card-head h2{
+      margin:0;
+      font-size:20px;
+    }
+    .badge{
+      font-size:12px;
+      color:var(--primary);
+      background:var(--soft);
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:700;
+    }
+    .card-body{
+      padding:22px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .field{
+      margin-bottom:14px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:8px;
+      color:#374151;
+    }
+    input, select, textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px 14px;
+      font-size:14px;
+      color:var(--text);
+      background:#fff;
+      outline:none;
+      transition:.18s ease;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color:#7aa2ff;
+      box-shadow:0 0 0 4px rgba(29,78,216,.08);
+    }
+    textarea{
+      min-height:96px;
+      resize:vertical;
+    }
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    button{
+      border:none;
+      border-radius:12px;
+      padding:13px 18px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .btn-primary{
+      background:var(--primary);
+      color:#fff;
+    }
+    .btn-primary:hover{background:var(--primary-dark)}
+    .btn-secondary{
+      background:#eef2f7;
+      color:#334155;
+    }
+    .btn-secondary:hover{background:#e4eaf2}
+    .output-block{
+      margin-bottom:16px;
+    }
+    .output-label{
+      font-size:13px;
+      font-weight:700;
+      color:#374151;
+      margin-bottom:8px;
+    }
+    .subject-box, .body-box{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fbfdff;
+    }
+    .subject-box{
+      padding:14px 16px;
+      font-weight:600;
+      min-height:50px;
+      display:flex;
+      align-items:center;
+    }
+    .body-box{
+      padding:16px;
+      min-height:370px;
+      white-space:pre-wrap;
+      line-height:1.6;
+      font-size:14px;
+    }
+    .helper{
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px dashed var(--line);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+    .footer-note{
+      text-align:center;
+      margin:18px 0 8px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      h1{font-size:30px}
+      .row{grid-template-columns:1fr}
+      .wrap{margin:20px auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">🚚 Freight Operations Demo</span>
+      <h1>Freight Email Generator</h1>
+      <p class="sub">Create export forwarding email drafts for booking, pick-up notice, pre-alert, and document requests. This is a simple HTML demo you can extend later with AI.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="card-head">
+          <h2>Input</h2>
+          <span class="badge">Form</span>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="field">
+              <label for="mode">Mode</label>
+              <select id="mode">
+                <option>Air</option>
+                <option>LCL</option>
+                <option>FCL</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="stage">Stage</label>
+              <select id="stage">
+                <option>Booking</option>
+                <option>Pickup Notice</option>
+                <option>Pre-alert</option>
+                <option>Docs Request</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="shipper">Shipper</label>
+              <input id="shipper" type="text" value="Dynamic Ratings Pty Ltd" />
+            </div>
+            <div class="field">
+              <label for="consignee">Consignee</label>
+              <input id="consignee" type="text" value="Pin Cargo Korea" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="origin">Origin</label>
+              <input id="origin" type="text" value="Sydney" />
+            </div>
+            <div class="field">
+              <label for="destination">Destination</label>
+              <input id="destination" type="text" value="Busan" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="commodity">Commodity</label>
+            <input id="commodity" type="text" value="Pump parts" />
+          </div>
+
+          <div class="field">
+            <label for="cargo">Cargo details</label>
+            <textarea id="cargo">1 CASE / 66 KGS / 83 x 83 x 63 cm</textarea>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="pickup">Pickup date</label>
+              <input id="pickup" type="text" value="10 March 2026" />
+            </div>
+            <div class="field">
+              <label for="ref">Reference</label>
+              <input id="ref" type="text" value="S00013958" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Special note</label>
+            <textarea id="note">Please use the next available schedule.</textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn-primary" onclick="generateEmail()">Generate Email</button>
+            <button class="btn-secondary" onclick="copyBody()">Copy Body</button>
+            <button class="btn-secondary" onclick="resetDemo()">Reset Demo</button>
+          </div>
+
+          <div class="helper">
+            💡 Next step idea: later you can connect this HTML to Python, Streamlit, Flask, or an LLM API so it becomes a real AI workflow assistant.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Output</h2>
+          <span class="badge">Preview</span>
+        </div>
+        <div class="card-body">
+          <div class="output-block">
+            <div class="output-label">Email Subject</div>
+            <div id="subject" class="subject-box">PIN CARGO / BOOKING REQUEST / SYD - PUS / AIR</div>
+          </div>
+
+          <div class="output-block">
+            <div class="output-label">Email Body</div>
+            <div id="body" class="body-box">Hi Team,
+
+Please book the below shipment.
+
+Mode: Air
+Shipper: Dynamic Ratings Pty Ltd
+Consignee: Pin Cargo Korea
+Route: Sydney to Busan
+Commodity: Pump parts
+Cargo details: 1 CASE / 66 KGS / 83 x 83 x 63 cm
+Reference: S00013958
+
+Note: Please use the next available schedule.
+
+Kind regards,
+Jin</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">Simple front-end demo built in plain HTML, CSS, and JavaScript ✨</p>
+  </div>
+
+  <script>
+    function shortCode(city){
+      const map = {
+        "Sydney":"SYD",
+        "Melbourne":"MEL",
+        "Brisbane":"BNE",
+        "Perth":"PER",
+        "Adelaide":"ADL",
+        "Busan":"PUS",
+        "Seoul":"SEL",
+        "Incheon":"ICN",
+        "Jakarta":"JKT",
+        "Delhi":"DEL",
+        "Ho Chi Minh":"SGN"
+      };
+      return map[city] || city.toUpperCase().slice(0,3);
+    }
+
+    function generateEmail(){
+      const mode = document.getElementById('mode').value;
+      const stage = document.getElementById('stage').value;
+      const shipper = document.getElementById('shipper').value;
+      const consignee = document.getElementById('consignee').value;
+      const origin = document.getElementById('origin').value;
+      const destination = document.getElementById('destination').value;
+      const commodity = document.getElementById('commodity').value;
+      const cargo = document.getElementById('cargo').value;
+      const pickup = document.getElementById('pickup').value;
+      const ref = document.getElementById('ref').value;
+      const note = document.getElementById('note').value;
+
+      let subject = '';
+      let body = '';
+
+      if(stage === 'Booking'){
+        subject = `PIN CARGO / BOOKING REQUEST / ${shortCode(origin)} - ${shortCode(destination)} / ${mode.toUpperCase()}`;
+        body = `Hi Team,
+
+Please book the below shipment.
+
+Mode: ${mode}
+Shipper: ${shipper}
+Consignee: ${consignee}
+Route: ${origin} to ${destination}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      } else if(stage === 'Pickup Notice'){
+        subject = `PIN CARGO / PICK UP NOTICE / ${shortCode(origin)} - ${shortCode(destination)} / ${mode.toUpperCase()}`;
+        body = `Hi Shipper,
+
+We have arranged pick up for the below shipment.
+
+Mode: ${mode}
+Pickup date: ${pickup}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Please attach the label to the cargo before the driver arrives.
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      } else if(stage === 'Pre-alert'){
+        subject = `PIN CARGO / PRE-ALERT / ${shortCode(origin)} - ${shortCode(destination)} / ${mode.toUpperCase()}`;
+        body = `Hi Team,
+
+Please find the pre-alert for the below shipment.
+
+Mode: ${mode}
+Shipper: ${shipper}
+Consignee: ${consignee}
+Route: ${origin} to ${destination}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      } else if(stage === 'Docs Request'){
+        subject = `PIN CARGO / DOCS REQUEST / ${shortCode(origin)} - ${shortCode(destination)} / ${mode.toUpperCase()}`;
+        body = `Hi Team,
+
+Please provide the required documents for the below shipment.
+
+Mode: ${mode}
+Shipper: ${shipper}
+Consignee: ${consignee}
+Route: ${origin} to ${destination}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Required documents:
+- Packing List
+- Commercial Invoice
+- Shipping Instruction
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      }
+
+      document.getElementById('subject').textContent = subject;
+      document.getElementById('body').textContent = body;
+    }
+
+    function copyBody(){
+      const subject = document.getElementById('subject').textContent;
+      const body = document.getElementById('body').textContent;
+      navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`);
+      alert('Email subject and body copied.');
+    }
+
+    function resetDemo(){
+      document.getElementById('mode').value = 'Air';
+      document.getElementById('stage').value = 'Booking';
+      document.getElementById('shipper').value = 'Dynamic Ratings Pty Ltd';
+      document.getElementById('consignee').value = 'Pin Cargo Korea';
+      document.getElementById('origin').value = 'Sydney';
+      document.getElementById('destination').value = 'Busan';
+      document.getElementById('commodity').value = 'Pump parts';
+      document.getElementById('cargo').value = '1 CASE / 66 KGS / 83 x 83 x 63 cm';
+      document.getElementById('pickup').value = '10 March 2026';
+      document.getElementById('ref').value = 'S00013958';
+      document.getElementById('note').value = 'Please use the next available schedule.';
+      generateEmail();
+    }
+  </script>
+</body>
+</html>
