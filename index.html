@@ -567,16 +567,22 @@
       return `${day}일(${weekday})`;
     }
 
-    function formatEnglishDateLong(dateString){
-      const date = parseDateInput(dateString);
-      if(!date || isNaN(date.getTime())) return dateString;
+function formatEnglishDateLong(dateString){
+  const date = parseDateInput(dateString);
+  if(!date || isNaN(date.getTime())) return dateString;
 
-      return date.toLocaleDateString('en-AU', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-      });
-    }
+  const parts = new Intl.DateTimeFormat('en-AU', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  }).formatToParts(date);
+
+  const weekday = parts.find(p => p.type === 'weekday').value;
+  const day = parts.find(p => p.type === 'day').value;
+  const month = parts.find(p => p.type === 'month').value;
+
+  return `${weekday}, ${day} ${month}`;
+}
 
     function formatEnglishDateFull(dateString){
       const date = parseDateInput(dateString);
@@ -962,7 +968,7 @@ accordance with dangerous goods regulations. **`;
 
 쉬퍼 측 서류 및 화물 디테일 전달드립니다.
 
-화물 디테일: ${cargo}
+${cargo}
 
 부킹 후 일정 안내드리겠습니다.
 
