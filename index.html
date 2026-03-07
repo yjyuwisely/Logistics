@@ -671,7 +671,7 @@
       }
 
       if(stage === 'docsStage' && mode === 'Air'){
-        return `** DOCS FOR ${docsFlightDate} FLIGHT ** PIN CARGO / ${route} / AIR / ${ref}`;
+        return `** DOCS FOR ${docsFlightDate} FLIGHT ** PIN CARGO / / ${mawbDocs} / ${route} / AIR / ${ref}`;
       }
 
       if(stage === 'docsStage' && (mode === 'LCL' || mode === 'FCL')){
@@ -686,7 +686,7 @@
         if(stage === 'S — Request' && sMessageType === 'shipperSli'){
           return `PIN CARGO / EXPORT TO ${destination} / S: ${shipper} / C: ${consignee} / ${route} / ${mode.toUpperCase()} / ${ref}`;
         }
-        return `PIN CARGO / ${stage} / S: ${shipper} / C: ${consignee} / ${route} / ${mode.toUpperCase()} / ${ref}`;
+        return `PIN CARGO / EXPORT TO ${destination} / S: ${shipper} / C: ${consignee} / ${route} / ${mode.toUpperCase()} / ${ref}`;
       }
 
       if(style === 'standard'){
