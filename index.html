@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freight Email Generator - Option B</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --primary:#1d4ed8;
+      --primary-dark:#163ea8;
+      --soft:#eef4ff;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f7faff 0%, #eef4fb 100%);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:1240px;
+      margin:32px auto;
+      padding:0 20px;
+    }
+
+    .hero{
+      margin-bottom:20px;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--primary);
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
+    h1{
+      margin:14px 0 8px;
+      font-size:38px;
+      line-height:1.1;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width:840px;
+      line-height:1.6;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:start;
+      margin-top:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(219,227,238,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-head{
+      padding:18px 22px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#fcfdff;
+    }
+
+    .card-head h2{
+      margin:0;
+      font-size:20px;
+    }
+
+    .badge{
+      font-size:12px;
+      color:var(--primary);
+      background:var(--soft);
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .card-body{
+      padding:22px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .row-3{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:8px;
+      color:#374151;
+    }
+
+    input, select, textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px 14px;
+      font-size:14px;
+      color:var(--text);
+      background:#fff;
+      outline:none;
+      transition:.18s ease;
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color:#7aa2ff;
+      box-shadow:0 0 0 4px rgba(29,78,216,.08);
+    }
+
+    textarea{
+      min-height:96px;
+      resize:vertical;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+      margin-bottom:18px;
+    }
+
+    button{
+      border:none;
+      border-radius:12px;
+      padding:13px 18px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--primary-dark);
+    }
+
+    .btn-secondary{
+      background:#eef2f7;
+      color:#334155;
+    }
+
+    .btn-secondary:hover{
+      background:#e4eaf2;
+    }
+
+    .output-block{
+      margin-bottom:18px;
+    }
+
+    .output-label{
+      font-size:13px;
+      font-weight:700;
+      color:#374151;
+      margin-bottom:8px;
+    }
+
+    .subject-box, .body-box{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fbfdff;
+    }
+
+    .subject-box{
+      padding:14px 16px;
+      font-weight:600;
+      min-height:54px;
+      display:flex;
+      align-items:center;
+      line-height:1.5;
+      word-break:break-word;
+    }
+
+    .body-box{
+      padding:16px;
+      min-height:520px;
+      white-space:pre-wrap;
+      line-height:1.65;
+      font-size:14px;
+    }
+
+    .helper{
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px dashed var(--line);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .section-title{
+      margin:0 0 12px;
+      font-size:15px;
+      font-weight:800;
+      color:#1f2937;
+    }
+
+    .footer-note{
+      text-align:center;
+      margin:18px 0 8px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 700px){
+      h1{font-size:30px}
+      .row,.row-3{grid-template-columns:1fr}
+      .wrap{margin:20px auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">🚚 Freight Operations Tool</span>
+      <h1>Freight Email Generator</h1>
+      <p class="sub">
+        하나의 입력값으로 이메일 제목과 본문을 동시에 생성하는 버전입니다.
+        제목은 별도 스타일 선택이 가능하며, 우측 패널은 입력 즉시 자동으로 업데이트됩니다.
+      </p>
+    </section>
+
+    <section class="grid">
+      <!-- LEFT: INPUT -->
+      <div class="card">
+        <div class="card-head">
+          <h2>Input</h2>
+          <span class="badge">Shared Form</span>
+        </div>
+        <div class="card-body">
+
+          <div class="section-title">Shipment Details</div>
+
+          <div class="row-3">
+            <div class="field">
+              <label for="mode">Mode</label>
+              <select id="mode">
+                <option>Air</option>
+                <option>LCL</option>
+                <option>FCL</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="stage">Stage</label>
+              <select id="stage">
+                <option>S — Request</option>
+                <option>Rate — Freight</option>
+                <option>B — Booking</option>
+                <option>A — Schedule</option>
+                <option>T — Trucking</option>
+                <option>CD — Cargo details</option>
+                <option>FI / DOCS</option>
+                <option>Pre-alert</option>
+                <option>D/N</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="subjectStyle">Subject Style</label>
+              <select id="subjectStyle">
+                <option value="standard">Style 1 — Standard</option>
+                <option value="full">Style 2 — With Stage / S / C / Ref</option>
+                <option value="agent">Style 3 — Korean Agent Style</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="shipper">Shipper</label>
+              <input id="shipper" type="text" value="Dynamic Ratings Pty Ltd" />
+            </div>
+            <div class="field">
+              <label for="consignee">Consignee</label>
+              <input id="consignee" type="text" value="Pin Cargo Korea" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="origin">Origin</label>
+              <input id="origin" type="text" value="Sydney" />
+            </div>
+            <div class="field">
+              <label for="destination">Destination</label>
+              <input id="destination" type="text" value="Busan" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="commodity">Commodity</label>
+            <input id="commodity" type="text" value="Pump parts" />
+          </div>
+
+          <div class="field">
+            <label for="cargo">Cargo details</label>
+            <textarea id="cargo">1 CASE / 66 KGS / 83 x 83 x 63 cm</textarea>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="pickup">Pickup date</label>
+              <input id="pickup" type="text" value="10 March 2026" />
+            </div>
+            <div class="field">
+              <label for="ref">Reference</label>
+              <input id="ref" type="text" value="S00013958" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Special note</label>
+            <textarea id="note">Please use the next available schedule.</textarea>
+          </div>
+
+          <div class="helper">
+            💡 이 버전은 제목 스타일만 따로 바꿀 수 있습니다.  
+            입력값은 한 번만 넣고, 제목 형식만 빠르게 바꿔서 복사할 수 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: OUTPUT -->
+      <div class="card">
+        <div class="card-head">
+          <h2>Output</h2>
+          <span class="badge">Live Preview</span>
+        </div>
+        <div class="card-body">
+
+          <div class="actions">
+            <button class="btn-primary" onclick="copyFullEmail()">Copy Full Email</button>
+            <button class="btn-secondary" onclick="copySubject()">Copy Subject</button>
+            <button class="btn-secondary" onclick="copyBody()">Copy Body</button>
+            <button class="btn-secondary" onclick="resetDemo()">Reset Demo</button>
+          </div>
+
+          <div class="output-block">
+            <div class="output-label">Email Subject</div>
+            <div id="subject" class="subject-box"></div>
+          </div>
+
+          <div class="output-block">
+            <div class="output-label">Email Body</div>
+            <div id="body" class="body-box"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">Plain HTML, CSS, and JavaScript — live-updating subject + body generator ✨</p>
+  </div>
+
+  <script>
+    function shortCode(city){
+      const map = {
+        "Sydney":"SYD",
+        "Melbourne":"MEL",
+        "Brisbane":"BNE",
+        "Perth":"PER",
+        "Adelaide":"ADL",
+        "Busan":"PUS",
+        "Seoul":"SEL",
+        "Incheon":"ICN",
+        "Jakarta":"JKT",
+        "Delhi":"DEL",
+        "Ho Chi Minh":"SGN",
+        "Auckland":"AKL",
+        "Singapore":"SIN",
+        "Los Angeles":"LAX"
+      };
+      return map[city] || city.toUpperCase().replace(/\s+/g, '').slice(0,3);
+    }
+
+    function stageLabelForSubject(stage){
+      if(stage === 'S — Request') return 'SHIPMENT ENQUIRY';
+      if(stage === 'Rate — Freight') return 'RATE REQUEST';
+      if(stage === 'B — Booking') return 'BOOKING REQUEST';
+      if(stage === 'A — Schedule') return 'SCHEDULE';
+      if(stage === 'T — Trucking') return 'PICK UP NOTICE';
+      if(stage === 'CD — Cargo details') return 'CARGO DETAILS';
+      if(stage === 'FI / DOCS') return 'FI & DOCS';
+      if(stage === 'Pre-alert') return 'PRE-ALERT';
+      if(stage === 'D/N') return 'D/N';
+      return 'SHIPMENT';
+    }
+
+    function buildSubject(style, stage, mode, shipper, consignee, origin, destination, ref){
+      const route = `${shortCode(origin)} - ${shortCode(destination)}`;
+      const routeCompact = `${shortCode(origin)}-${shortCode(destination)}`;
+      const stageText = stageLabelForSubject(stage);
+
+      if(style === 'standard'){
+        return `PIN CARGO / ${stageText} / ${route} / ${mode.toUpperCase()}`;
+      }
+
+      if(style === 'full'){
+        return `PIN CARGO / ${stageText} / S: ${shipper} / C: ${consignee} / ${routeCompact} / ${mode.toUpperCase()} / ${ref}`;
+      }
+
+      if(style === 'agent'){
+        if(stage === 'Rate — Freight') return `[운임 확인] ${origin} - ${destination} / ${mode} / ${ref}`;
+        if(stage === 'A — Schedule') return `[스케줄 안내] ${origin} - ${destination} / ${mode} / ${ref}`;
+        if(stage === 'CD — Cargo details') return `[실물 확정 공유] ${origin} - ${destination} / ${mode} / ${ref}`;
+        if(stage === 'Pre-alert') return `[PRE-ALERT] ${origin} - ${destination} / ${mode} / ${ref}`;
+        if(stage === 'D/N') return `[D/N 전달] ${origin} - ${destination} / ${mode} / ${ref}`;
+        return `[${stageText}] ${origin} - ${destination} / ${mode} / ${ref}`;
+      }
+
+      return `PIN CARGO / ${stageText} / ${route} / ${mode.toUpperCase()}`;
+    }
+
+    function generateEmail(){
+      const mode = document.getElementById('mode').value;
+      const stage = document.getElementById('stage').value;
+      const subjectStyle = document.getElementById('subjectStyle').value;
+      const shipper = document.getElementById('shipper').value.trim();
+      const consignee = document.getElementById('consignee').value.trim();
+      const origin = document.getElementById('origin').value.trim();
+      const destination = document.getElementById('destination').value.trim();
+      const commodity = document.getElementById('commodity').value.trim();
+      const cargo = document.getElementById('cargo').value.trim();
+      const pickup = document.getElementById('pickup').value.trim();
+      const ref = document.getElementById('ref').value.trim();
+      const note = document.getElementById('note').value.trim();
+
+      const subject = buildSubject(
+        subjectStyle,
+        stage,
+        mode,
+        shipper,
+        consignee,
+        origin,
+        destination,
+        ref
+      );
+
+      let body = '';
+
+      if(stage === 'S — Request'){
+        body = `Hi Team,
+
+We have been informed that you have an export shipment to ${destination}.
+
+Could you please advise the below for shipment arrangement?
+
+- SLI, packing list, and commercial invoice
+- Pick-up address and opening hours
+- Contact person and contact number
+- Whether a forklift is available on site
+- Whether there is any pick-up reference required
+- Whether the cargo contains batteries or DG / Haz cargo
+
+Consignee: ${consignee}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      }
+
+      else if(stage === 'Rate — Freight'){
+        body = `안녕하세요.
+
+아래 건 운임 확인 부탁드립니다.
+
+- 운송 방식: ${mode}
+- 출발지: ${origin}
+- 도착지: ${destination}
+- 화물명: ${commodity}
+- 화물 정보: ${cargo}
+- Reference: ${ref}
+
+가능한 가장 빠른 스케줄 기준으로 운임 확인 부탁드리며,
+추가 비용이나 특이사항이 있으면 함께 안내 부탁드립니다.
+
+특이사항: ${note}
+
+감사합니다.
+Jin 드림`;
+      }
+
+      else if(stage === 'B — Booking'){
+        body = `Hi Team,
+
+Please arrange booking for the below shipment.
+
+Mode: ${mode}
+Shipper: ${shipper}
+Consignee: ${consignee}
+Route: ${origin} to ${destination}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Please book on the next available schedule and advise booking confirmation once available.
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      }
+
+      else if(stage === 'A — Schedule'){
+        body = `안녕하세요.
+
+아래 건 스케줄 안내드립니다.
+
+- 운송 방식: ${mode}
+- 출발지: ${origin}
+- 도착지: ${destination}
+- 화물명: ${commodity}
+- 화물 정보: ${cargo}
+- Reference: ${ref}
+
+부킹 진행되었으며, 현재 확인된 스케줄 기준으로 안내드립니다.
+변동 사항이 있는 경우 바로 업데이트드리겠습니다.
+
+감사합니다.
+Jin 드림`;
+      }
+
+      else if(stage === 'T — Trucking'){
+        body = `Hi Shipper,
+
+We have arranged pick-up for the below shipment.
+
+Pick-up date: ${pickup}
+Mode: ${mode}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Please confirm the cargo is ready for collection.
+Please attach the shipping label before the driver arrives.
+If there is any site instruction or pick-up reference, please advise us accordingly.
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      }
+
+      else if(stage === 'CD — Cargo details'){
+        body = `안녕하세요.
+
+아래 건 실물 기준 화물 정보 공유드립니다.
+
+- 운송 방식: ${mode}
+- 출발지: ${origin}
+- 도착지: ${destination}
+- 화물명: ${commodity}
+- 실물 정보: ${cargo}
+- Reference: ${ref}
+
+실입고 기준으로 확인된 정보이며,
+운임 또는 진행 사항에 변경이 필요한 경우 회신 부탁드립니다.
+
+감사합니다.
+Jin 드림`;
+      }
+
+      else if(stage === 'FI / DOCS'){
+        body = `Hi Team,
+
+Please find the forwarding instruction and shipping documents for the below shipment.
+
+Mode: ${mode}
+Shipper: ${shipper}
+Consignee: ${consignee}
+Route: ${origin} to ${destination}
+Commodity: ${commodity}
+Cargo details: ${cargo}
+Reference: ${ref}
+
+Attached:
+- Forwarding Instruction
+- Packing List
+- Commercial Invoice
+- Other relevant shipping documents
+
+Please review the attached documents and proceed accordingly.
+
+Note: ${note}
+
+Kind regards,
+Jin`;
+      }
+
+      else if(stage === 'Pre-alert'){
+        body = `안녕하세요.
+
+아래 건 Pre-alert 전달드립니다.
+
+- 운송 방식: ${mode}
+- 출발지: ${origin}
+- 도착지: ${destination}
+- 화물명: ${commodity}
+- 화물 정보: ${cargo}
+- Reference: ${ref}
+
+관련 서류 첨부드리오니 확인 부탁드리며,
+도착 후 진행 사항 있으시면 업데이트 부탁드립니다.
+
+감사합니다.
+Jin 드림`;
+      }
+
+      else if(stage === 'D/N'){
+        body = `안녕하세요.
+
+아래 건 Debit Note 전달드립니다.
+
+- 운송 방식: ${mode}
+- 출발지: ${origin}
+- 도착지: ${destination}
+- 화물명: ${commodity}
+- 화물 정보: ${cargo}
+- Reference: ${ref}
+
+첨부된 Debit Note 확인 부탁드리며,
+문의 사항 있으시면 회신 부탁드립니다.
+
+감사합니다.
+Jin 드림`;
+      }
+
+      document.getElementById('subject').textContent = subject;
+      document.getElementById('body').textContent = body;
+    }
+
+    function copySubject(){
+      const subject = document.getElementById('subject').textContent;
+      navigator.clipboard.writeText(subject);
+      alert('Subject copied.');
+    }
+
+    function copyBody(){
+      const body = document.getElementById('body').textContent;
+      navigator.clipboard.writeText(body);
+      alert('Body copied.');
+    }
+
+    function copyFullEmail(){
+      const subject = document.getElementById('subject').textContent;
+      const body = document.getElementById('body').textContent;
+      navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`);
+      alert('Full email copied.');
+    }
+
+    function resetDemo(){
+      document.getElementById('mode').value = 'Air';
+      document.getElementById('stage').value = 'S — Request';
+      document.getElementById('subjectStyle').value = 'standard';
+      document.getElementById('shipper').value = 'Dynamic Ratings Pty Ltd';
+      document.getElementById('consignee').value = 'Pin Cargo Korea';
+      document.getElementById('origin').value = 'Sydney';
+      document.getElementById('destination').value = 'Busan';
+      document.getElementById('commodity').value = 'Pump parts';
+      document.getElementById('cargo').value = '1 CASE / 66 KGS / 83 x 83 x 63 cm';
+      document.getElementById('pickup').value = '10 March 2026';
+      document.getElementById('ref').value = 'S00013958';
+      document.getElementById('note').value = 'Please use the next available schedule.';
+      generateEmail();
+    }
+
+    const fields = document.querySelectorAll('input, select, textarea');
+    fields.forEach(field => {
+      field.addEventListener('input', generateEmail);
+      field.addEventListener('change', generateEmail);
+    });
+
+    window.addEventListener('DOMContentLoaded', generateEmail);
+  </script>
+</body>
+</html>
+
+which one is better? your code version or me updated version?
