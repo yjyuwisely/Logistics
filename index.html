@@ -864,8 +864,8 @@ ${etaLabel}: ${eta}`;
 
       if(stage === 'S — Request'){
         if(sMessageType === 'agentInitial'){
-          body = `안녕하세요.
-쉬퍼 측 컨택 후 일정 및 운임 안내드리겠습니다.
+          body = `안녕하세요.<br>
+쉬퍼 측 컨택 후 일정 및 운임 안내드리겠습니다.<br>
 감사합니다.`;
         } else if(sMessageType === 'shipperSli'){
           body = `Hi Team,
@@ -889,9 +889,9 @@ CONSIGNEE: ${consignee}
 ** If the cargo contains any batteries or dangerous goods, it must be marked and labelled in
 accordance with dangerous goods regulations. **`;
         } else {
-          body = `안녕하세요.
-쉬퍼 측 서류 및 화물 디테일 전달드립니다.
-부킹 후 일정 안내드리겠습니다.
+          body = `안녕하세요.<br>
+쉬퍼 측 서류 및 화물 디테일 전달드립니다.<br><br>
+부킹 후 일정 안내드리겠습니다.<br>
 감사합니다.`;
         }
       }
@@ -944,7 +944,7 @@ Cargo details: ${cargo}`;
       else if(stage === 'A — Schedule'){
         if(mode === 'Air'){
           if(aMessageType === 'schedulePickup'){
-            body = `안녕하세요.
+            body = `안녕하세요.<br>
 본건 컨펌된 스케쥴 안내드립니다.
 
 MAWB: ${masterNo}
@@ -954,8 +954,8 @@ ETD: ${etd}
 T/S: ${ts}
 ETA: ${eta}
 
-픽업은 ${pickup}일 예정입니다.
-픽업 후 체크인 디테일 송부드리겠습니다.
+픽업은 ${pickup}일 예정입니다.<br>
+픽업 후 체크인 디테일 송부드리겠습니다.<br>
 감사합니다.`;
           } else if(aMessageType === 'scheduleRate'){
             body = `안녕하세요.
@@ -968,10 +968,10 @@ ETD: ${etd}
 T/S: ${ts}
 ETA: ${eta}
 
-하기에 운임 안내드립니다.
+하기에 운임 안내드립니다.<br>
 감사합니다.`;
           } else {
-            body = `안녕하세요.
+            body = `안녕하세요.<br>
 본건 컨펌된 스케쥴 안내드립니다.
 
 MAWB: ${masterNo}
@@ -981,29 +981,29 @@ ETD: ${etd}
 T/S: ${ts}
 ETA: ${eta}
 
-픽업은 ${pickup}일 예정입니다.
-픽업 후 체크인 디테일 송부드리겠습니다.
-하기에 운임 안내드립니다.
+픽업은 ${pickup}일 예정입니다.<br>
+픽업 후 체크인 디테일 송부드리겠습니다.<br>
+하기에 운임 안내드립니다.<br>
 감사합니다.`;
           }
         } else {
           if(aMessageType === 'schedulePickup'){
-            body = `안녕하세요.
-본건 컨펌된 스케쥴 안내드립니다.
-픽업은 ${pickup}일 예정입니다.
-픽업 후 입고된 화물 디테일 송부드리겠습니다.
+            body = `안녕하세요.<br>
+본건 컨펌된 스케쥴 안내드립니다.<br>
+픽업은 ${pickup}일 예정입니다.<br>
+픽업 후 입고된 화물 디테일 송부드리겠습니다.<br>
 감사합니다.`;
           } else if(aMessageType === 'scheduleRate'){
-            body = `안녕하세요.
-본건 컨펌된 스케쥴 안내드립니다.
-하기에 운임 안내드립니다.
+            body = `안녕하세요.<br>
+본건 컨펌된 스케쥴 안내드립니다.<br>
+하기에 운임 안내드립니다.<br>
 감사합니다.`;
           } else {
-            body = `안녕하세요.
-본건 컨펌된 스케쥴 안내드립니다.
-픽업은 ${pickup}일 예정입니다.
-픽업 후 체크인 디테일 송부드리겠습니다.
-하기에 운임 안내드립니다.
+            body = `안녕하세요.<br>
+본건 컨펌된 스케쥴 안내드립니다.<br>
+픽업은 ${pickup}일 예정입니다.<br>
+픽업 후 체크인 디테일 송부드리겠습니다.<br>
+하기에 운임 안내드립니다.<br>
 감사합니다.`;
           }
         }
@@ -1011,40 +1011,35 @@ ETA: ${eta}
 
       else if(stage === 'CD — Check-in'){
         if(mode === 'Air'){
-          body = `안녕하세요. 
-하기에 입고된 화물 체크인 디테일 전달드립니다.
-${cargo}
-항공 서류는 준비되는 대로 송부드리겠습니다.
+          body = `안녕하세요.<br>
+하기에 입고된 화물 체크인 디테일 전달드립니다.<br>
+${cargo}<br>
+항공 서류는 준비되는 대로 송부드리겠습니다.<br>
 감사합니다.`;
         } else {
-          body = `안녕하세요. 
-하기에 입고된 화물 체크인 디테일 전달드립니다.
-${cargo}
-화물 서류는 준비되는 대로 송부드리겠습니다.
+          body = `안녕하세요.<br>
+하기에 입고된 화물 체크인 디테일 전달드립니다.<br>
+${cargo}<br>
+화물 서류는 준비되는 대로 송부드리겠습니다.<br>
 감사합니다.`;
         }
       }
 
       else if(stage === 'T — Trucking'){
-        body = `Hi Team,
-
+        body = `Hi Team,<br>
 We have arranged the pickup ${pickup} by ${driverCompany}.
 Please find the attached label and kindly affix it to the cargo before the driver arrives.`;
       }
 
       else if(stage === 'docsStage'){
         if(mode === 'Air'){
-          body = `Hi Team, 
-
-Please find the attached docs. 
-
+          body = `Hi Team, <br>
+Please find the attached docs. <br>
 MAWB: ${mawbDocs}
 HAWB: ${hawbDocs}`;
         } else {
-          body = `Hi Team,
-
-Please find the attached FI for ${mblFi}. 
-
+          body = `Hi Team,<br>
+Please find the attached FI for ${mblFi}. <br>
 HS Code: ${hsCodeFi}
 EDN: ${ednFi}`;
         }
@@ -1052,13 +1047,13 @@ EDN: ${ednFi}`;
 
       else if(stage === 'Pre-alert'){
         if(preAlertMessageType === 'preAlertOnly'){
-          body = `안녕하세요.
+          body = `안녕하세요.<br>
 본건 Pre-alert 송부드립니다.
-셀링 인폼 주시면 D/N 전달드리겠습니다.
+셀링 인폼 주시면 D/N 전달드리겠습니다.<br>
 ${preAlertTableText}
 감사합니다.`;
         } else {
-          body = `안녕하세요.
+          body = `안녕하세요.<br>
 본건 Pre-alert 및 D/N 송부드립니다.
 ${preAlertTableText}
 감사합니다.`;
@@ -1067,11 +1062,11 @@ ${preAlertTableText}
 
       else if(stage === 'D/N'){
         if(dnMessageType === 'sellingInfoDn'){
-          body = `안녕하세요.
+          body = `안녕하세요.<br>
 셀링 인폼 감사드리며 본건 D/N 송부드립니다.
 감사합니다.`;
         } else {
-          body = `안녕하세요.
+          body = `안녕하세요.<br>
 본건 D/N 송부드립니다.
 감사합니다.`;
         }
@@ -1085,9 +1080,9 @@ ${preAlertTableText}
         if(preAlertMessageType === 'preAlertOnly'){
           bodyEl.innerHTML = `
             <div style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#1f2937; line-height:1.65;">
-              안녕하세요.<br><br>
-              본건 Pre-alert 송부드립니다.<br>
-              셀링 인폼 주시면 D/N 전달드리겠습니다.<br><br>
+              안녕하세요.<br>
+              본건 Pre-alert 송부드립니다.
+              셀링 인폼 주시면 D/N 전달드리겠습니다.
               ${preAlertTableHtml}
               감사합니다.
             </div>
@@ -1095,8 +1090,8 @@ ${preAlertTableText}
         } else {
           bodyEl.innerHTML = `
             <div style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#1f2937; line-height:1.65;">
-              안녕하세요.<br><br>
-              본건 Pre-alert 및 D/N 송부드립니다.<br><br>
+              안녕하세요.<br>
+              본건 Pre-alert 및 D/N 송부드립니다.
               ${preAlertTableHtml}
               감사합니다.
             </div>
@@ -1106,20 +1101,20 @@ ${preAlertTableText}
       else if(stage === 'A — Schedule' && mode === 'Air'){
         let intro = '';
         if(aMessageType === 'schedulePickup'){
-          intro = `안녕하세요.<br><br>
+          intro = `안녕하세요.<br>
             본건 컨펌된 스케쥴 안내드립니다.<br>
             픽업은 ${escapeHtml(pickup)}일 예정입니다.<br>
-            픽업 후 체크인 디테일 송부드리겠습니다.<br><br>`;
+            픽업 후 체크인 디테일 송부드리겠습니다.`;
         } else if(aMessageType === 'scheduleRate'){
-          intro = `안녕하세요.<br><br>
+          intro = `안녕하세요.<br>
             본건 컨펌된 스케쥴 안내드립니다.<br>
-            하기에 운임 안내드립니다.<br><br>`;
+            하기에 운임 안내드립니다.`;
         } else {
-          intro = `안녕하세요.<br><br>
+          intro = `안녕하세요.<br>
             본건 컨펌된 스케쥴 안내드립니다.<br>
             픽업은 ${escapeHtml(pickup)}일 예정입니다.<br>
             픽업 후 체크인 디테일 송부드리겠습니다.<br>
-            하기에 운임 안내드립니다.<br><br>`;
+            하기에 운임 안내드립니다.`;
         }
 
         bodyEl.innerHTML = `
